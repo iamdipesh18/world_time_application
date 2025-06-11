@@ -1,40 +1,32 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   String location; // Location name for UI
-  String time = 'Loading...'; // The time in that location (default placeholder)
+  String time = 'Loading...'; // The time in that location
   String flag; // Asset flag icon path
-  String url; // API endpoint (e.g., 'Berlin')
+  String url; // Timezone string (e.g., 'Europe/Berlin')
+  bool? isDaytime; // true for day, false for night
 
   WorldTime({required this.location, required this.flag, required this.url});
 
   Future<void> getTime() async {
     try {
       final apiUrl = Uri.parse(
-        'https://timeapi.io/api/Time/current/zone?timeZone=Europe/$url',
+        'https://timeapi.io/api/Time/current/zone?timeZone=$url',
       );
 
       final response = await http.get(apiUrl);
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        String dateTime =
-            data['dateTime']; // Example: "2025-06-11T07:20:28.844541"
+        String dateTime = data['dateTime'];
 
         DateTime localDateTime = DateTime.parse(dateTime);
-        DateTime utcNow = DateTime.now().toUtc();
 
-        Duration diff = localDateTime.difference(utcNow);
-        String offsetSign = diff.isNegative ? '-' : '+';
-        int offsetHours = diff.inHours.abs();
-        int offsetMinutes = diff.inMinutes.remainder(60).abs();
-
-        String offset =
-            '$offsetSign${offsetHours.toString().padLeft(2, '0')}:${offsetMinutes.toString().padLeft(2, '0')}';
-
-        // Optional: You can format localDateTime if you want to show only time, etc.
-        time = localDateTime.toString();
+        isDaytime = localDateTime.hour > 6 && localDateTime.hour < 20;
+        time = DateFormat.jm().format(localDateTime);
       } else {
         time = 'Time not available';
         print('API Error: ${response.statusCode}');

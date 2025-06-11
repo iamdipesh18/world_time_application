@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:world_time_application/services/world_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
+  const Loading({super.key}); // Good practice to add const constructor
+
   @override
-  _LoadingState createState() => _LoadingState();
+  State<Loading> createState() => _LoadingState();
 }
 
 class _LoadingState extends State<Loading> {
@@ -14,11 +17,16 @@ class _LoadingState extends State<Loading> {
       url: 'Berlin',
     );
     await instance.getTime();
-    Navigator.pushReplacementNamed(context, '/home',arguments:{
-      'location':instance.location,
-      'flag':instance.flag,
-      'time':instance.time,
-    } );
+    Navigator.pushReplacementNamed(
+      context,
+      '/home',
+      arguments: {
+        'location': instance.location,
+        'flag': instance.flag,
+        'time': instance.time,
+        'isDayTime':instance.isDaytime,
+      },
+    );
   }
 
   @override
@@ -30,7 +38,13 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(padding: EdgeInsets.all(50), child: Text('Loading')),
-    );
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child: SpinKitCubeGrid(
+          color: Colors.white, 
+          size: 50.0
+          ),
+      ),
+    ); // Correctly close Scaffold and use semicolon here
   }
 }
