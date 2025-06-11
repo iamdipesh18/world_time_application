@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:world_time_application/pages/choose_location.dart';
-import 'package:world_time_application/pages/loading.dart';
-import 'package:http/http.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
-
   @override
-  State<Home> createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  Map data = {};
+
   @override
   Widget build(BuildContext context) {
-    print("ChooseLocation screen loaded!"); // Debug log
+    //    print("ChooseLocation screen loaded!"); // Debug log
+    final route = ModalRoute.of(context);
+    if (route != null && route.settings.arguments is Map) {
+      data = route.settings.arguments as Map;
+    }
+    ;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
