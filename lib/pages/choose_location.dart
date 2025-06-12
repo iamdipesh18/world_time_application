@@ -9,7 +9,7 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-  List<WorldTime> locations = [
+  final List<WorldTime> locations = [
     WorldTime(
       url: 'Europe/Amsterdam',
       location: 'Amsterdam',
@@ -22,12 +22,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'southkorea.png'),
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
+    WorldTime(url: 'Asia/Kathmandu', location: 'Kathmandu', flag: 'nepal.png'),
   ];
 
-  void updateTime(index) async {
-    WorldTime instance = locations[index];
+  void updateTime(int index) async {
+    final WorldTime instance = locations[index];
     await instance.getTime();
 
+    if (!mounted) return; // Prevent navigation if widget is disposed
     Navigator.pop(context, {
       'location': instance.location,
       'flag': instance.flag,
