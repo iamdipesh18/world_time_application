@@ -17,12 +17,13 @@ A lightweight Flutter app that fetches and displays the current time for any cit
 ## 📸 Screenshots (Coming Soon)
 
 > Add screenshots in `assets/screenshots/` and link them here:
-<!-- 
+
 ![Choose Location Screen](assets/screenshots/choose_location.png)
-![Loading Screen](assets/screenshots/loading.png)
+![Loading Screen](assets/screenshots/loading2.png)
+![Loading Screen](assets/screenshots/loading1.png)
 ![Home Screen - Day](assets/screenshots/home_day.png)
 ![Home Screen - Night](assets/screenshots/home_night.png)
--->
+
 
 ---
 
