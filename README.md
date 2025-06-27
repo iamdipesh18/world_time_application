@@ -14,9 +14,7 @@ A lightweight Flutter app that fetches and displays the current time for any cit
 
 ---
 
-## 📸 Screenshots (Coming Soon)
-
-> Add screenshots in `assets/screenshots/` and link them here:
+## 📸 Screenshots
 
 ![Choose Location Screen](assets/screenshots/choose_location.png)
 ![Loading Screen](assets/screenshots/loading_2.png)
